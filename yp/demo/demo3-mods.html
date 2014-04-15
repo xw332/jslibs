@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - mods</title>
+</head>
+<body>
+  <p>mods：负责全局模块管理</p>
+  请打开调试器，查看信息
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script>
+    // yp-mods在框架中通常设为默认加载
+    $.sub('mods/ready/mock', function(e, data) {
+      yp.log('模块外定义：mock模块加载成功', data);
+    });
+    yp.use('mock', function(yp) {
+      // 自定义回调
+      yp.log('自定义回调');
+    });
+  </script>
+</body>
+</html>

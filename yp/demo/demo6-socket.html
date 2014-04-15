@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - socket</title>
+</head>
+<body>
+  <p>socket：负责长连接通信管理</p>
+  请打开调试器，查看消息
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script src="../test/yp-socket.js"></script>
+  <script>
+    yp.use('yp-socket', function(yp) {
+      // socket通信处理
+      +function() {
+        var socket = {
+          get: {
+            userIn: function(msg) {
+              yp.log('接收到socket用户消息：', msg);
+            }
+          }
+        , send: {
+            ready: function() {
+              yp.ajax('ready', {type:'socket'});
+            }
+          }
+        };
+        yp.socket.init({wsUrl:'index.php'});
+        $.topic('msgc/userIn').sub(function(msg) {
+          socket.get.userIn(msg);
+        });
+        yp.sub('msgc/ready', function(e) {
+          yp.unsub('msgc/ready');
+          // 申请进入房间
+          socket.send.ready();
+        });
+      }();
+    });
+  </script>
+</body>
+</html>
