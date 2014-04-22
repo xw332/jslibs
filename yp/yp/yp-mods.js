@@ -89,13 +89,13 @@ var
   // 框架功能初始化（不依赖文件加载触发，页面运行中可多次执行）
   // debug示例
   api.updateList.debug = function($container) {
-    console.log('框架组件初始化', $container);
+    yp.log('框架组件初始化', $container);
   };
 
   // 自定义组件初始化（依赖文件加载触发，页面运行中可多次执行）
   // yp-chat示例
   api.update['mock'] = function($container) {
-    console.log('模块内定义：mock模块加载成功', $container);
+    yp.log('模块内定义：mock模块加载成功', $container);
   };
 
   // 监听UI内容更新（常见动态插入html内容）

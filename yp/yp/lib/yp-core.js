@@ -6,7 +6,7 @@ var
   }
   yp.fn = yp.prototype = {
     constructor: yp
-  , yp: '20140324.1'
+  , yp: '20140422.1'
   , create: function(conf) {
       /*this.conf = conf || {};*/
       this.config.init();
@@ -45,6 +45,15 @@ var
   };
   // 空函数
   yp.noop = $.noop;
+
+  // bind垫片
+  Function.prototype.bind = Function.prototype.bind || function (bind) {
+    var self = this;
+    return function () {
+      var args = Array.prototype.slice.call(arguments);
+      return self.apply(bind || null, args);
+    };
+  };
 
   yp.mix(yp, {
     rword: /[^, ]+/g
