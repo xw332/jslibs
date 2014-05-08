@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>列表中间竖线css实现</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #666;
+    }
+    ul, li {
+      list-style: none;
+    }
+    #footer {
+      width: 400px;
+      background-color: #fff;
+      margin: 0 auto;
+    }
+
+    #footer ul {
+      white-space: nowrap;
+      word-wrap: normal;
+      overflow: hidden;
+      *zoom: 1;
+    }
+
+    #footer li {
+      float: left;
+      margin-left: -1px;
+    }
+
+    #footer li a{
+      display: block;
+      padding: 0 10px;
+      border-left: 1px solid #bbb;
+      line-height: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+  </style>
+</head> 
+<body>
+  <!-- footer>ul.dib-box>li.dib*20>a[href=#]{列表$} -->
+  <div id="footer">
+    <ul class="list">
+      <li class="list-item"><a href="#">列表1</a></li>
+      <li class="list-item"><a href="#">列表2</a></li>
+      <li class="list-item"><a href="#">列表3</a></li>
+      <li class="list-item"><a href="#">列表4</a></li>
+      <li class="list-item"><a href="#">列表5</a></li>
+      <li class="list-item"><a href="#">列表6</a></li>
+      <li class="list-item"><a href="#">列表7</a></li>
+      <li class="list-item"><a href="#">列表8</a></li>
+      <li class="list-item"><a href="#">列表9</a></li>
+      <li class="list-item"><a href="#">列表10</a></li>
+      <li class="list-item"><a href="#">列表11</a></li>
+      <li class="list-item"><a href="#">列表12</a></li>
+      <li class="list-item"><a href="#">列表13</a></li>
+      <li class="list-item"><a href="#">列表14</a></li>
+      <li class="list-item"><a href="#">列表15</a></li>
+      <li class="list-item"><a href="#">列表16</a></li>
+      <li class="list-item"><a href="#">列表17</a></li>
+      <li class="list-item"><a href="#">列表18</a></li>
+      <li class="list-item"><a href="#">列表19</a></li>
+      <li class="list-item"><a href="#">列表20</a></li>
+    </ul>
+  </div>
+</body>
+</html>
