@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Ìí±Ê»­ÑİÊ¾1.32</title>
+    <title>æ·»ç¬”ç”»æ¼”ç¤º1.32</title>
     <link rel="stylesheet" type="text/css" href="corescreen.css" />
     <!--<link rel="stylesheet" type="text/css" href="http://ppmm365.com/res/css/corescreen.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="http://127.0.0.1:81/res/css/corescreen.css" />-->
@@ -42,7 +42,7 @@
                     cid: null,
                     objStepNum: 0
                 },
-                option: {//Ä¬ÈÏÉèÖÃ
+                option: {//é»˜è®¤è®¾ç½®
                     board: {
 						numWidth: 3,
 						numHeight: 3
@@ -54,7 +54,7 @@
                     lineRank: 0,
                     isRandom: false,
                     mode: 0,
-                    indexPlayer: 0,///Ò²¿ÉÒÔ×÷Îª·¿Ö÷È¨ÏŞ
+                    indexPlayer: 0,///ä¹Ÿå¯ä»¥ä½œä¸ºæˆ¿ä¸»æƒé™
                     box: [],
                     host: ''///
                 },
@@ -64,14 +64,14 @@
                     isPlaying: 0
                 },
                 msg: {
-                    create: '´´½¨³É¹¦£¡',
-                    noRoom: 'µ±Ç°Ã»ÓĞ¿ÕÏĞµÄ·¿¼ä£¬Äú¿ÉÒÔÑ¡Ôñ×Ô¼º´´½¨·¿¼ä»òÕßÉÔºóÖØÊÔ£¡',
-                    join: '¼ÓÈë³É¹¦£¡',
-                    get: '¿ªÊ¼½ÓÊÕÏûÏ¢£¡',
-                    notEnough: '·¿¼äÀï»¹Ã»ÓĞÆäËûÈË£¡',
-                    start: 'ÓÎÏ·¿ªÊ¼£¡',
-                    out: 'ÍË³ö³É¹¦',
-                    timeout: 'ÍøÂçÑÓÊ±£¬ÇëÉÔºóÖØÊÔ£¡'
+                    create: 'åˆ›å»ºæˆåŠŸï¼',
+                    noRoom: 'å½“å‰æ²¡æœ‰ç©ºé—²çš„æˆ¿é—´ï¼Œæ‚¨å¯ä»¥é€‰æ‹©è‡ªå·±åˆ›å»ºæˆ¿é—´æˆ–è€…ç¨åé‡è¯•ï¼',
+                    join: 'åŠ å…¥æˆåŠŸï¼',
+                    get: 'å¼€å§‹æ¥æ”¶æ¶ˆæ¯ï¼',
+                    notEnough: 'æˆ¿é—´é‡Œè¿˜æ²¡æœ‰å…¶ä»–äººï¼',
+                    start: 'æ¸¸æˆå¼€å§‹ï¼',
+                    out: 'é€€å‡ºæˆåŠŸ',
+                    timeout: 'ç½‘ç»œå»¶æ—¶ï¼Œè¯·ç¨åé‡è¯•ï¼'
                 },
                 div: {
                     $board: false,
@@ -89,7 +89,7 @@
                     },
                     $mode: false
                 },
-                init: function () {//³õÊ¼»¯
+                init: function () {//åˆå§‹åŒ–
                     var obj = Game;
                     var $board = obj.div.$board = $('#board'),
                         $player = obj.div.players.$player = $('#control .player'),
@@ -100,32 +100,32 @@
                         $join = obj.div.btn.$join = $('#btnJoin'),
                         $out = obj.div.btn.$out = $('#btnOut'),
                         $mode = obj.div.$mode = $('#listMode');
-                    //ÖØĞÂ¿ªÊ¼
+                    //é‡æ–°å¼€å§‹
                     $reset.click(function(){
-                        if (confirm('ÄúÈ·¶¨ÒªÖØĞÂ¿ªÊ¼Âğ£¿')) {
+                        if (confirm('æ‚¨ç¡®å®šè¦é‡æ–°å¼€å§‹å—ï¼Ÿ')) {
                             obj.reset();
                         }
                     });
-                    //´´½¨·¿¼ä
+                    //åˆ›å»ºæˆ¿é—´
                     $create.click(function(){
                         obj.create();
                     });
-                    //¼ÓÈë·¿¼ä
+                    //åŠ å…¥æˆ¿é—´
                     $join.click(function(){
                         obj.join();
                     });
-                    //ÍË³ö·¿¼ä
+                    //é€€å‡ºæˆ¿é—´
                     $out.click(function(){
                         obj.out();
                     });
-                    //Ä£Ê½ÇĞ»»
+                    //æ¨¡å¼åˆ‡æ¢
                     $mode.change(function(){
                         var flag = this.value == 2;
                         $reset.attr('disabled', flag);
                         $create.attr('disabled', !flag);
                         $join.attr('disabled', !flag);
                     });
-                    ///ÍøÂç¹¦ÄÜÄ¬ÈÏ²»¿ÉÓÃ£¬Ò²¿ÉÉèÎªÒş²Ø
+                    ///ç½‘ç»œåŠŸèƒ½é»˜è®¤ä¸å¯ç”¨ï¼Œä¹Ÿå¯è®¾ä¸ºéšè—
                     if ($mode.val() != 2) {
                         $reset.attr('disabled', false);
                         $create.attr('disabled', true);
@@ -136,24 +136,24 @@
                         $join.attr('disabled', false);
                     }
                     $out.attr('disabled', true);
-                    //³õÊ¼»¯ÆåÅÌ
+                    //åˆå§‹åŒ–æ£‹ç›˜
                     obj.reset(1);
-                    //°ó¶¨µã»÷ÊÂ¼ş
-                    $board.click(function(e){///ÏÈ¼ÆËã³öindex¿ÉÄÜ¸ü¾«È·
+                    //ç»‘å®šç‚¹å‡»äº‹ä»¶
+                    $board.click(function(e){///å…ˆè®¡ç®—å‡ºindexå¯èƒ½æ›´ç²¾ç¡®
                         if (!obj.players.isPlaying || (obj.config.mode == 2 && obj.players.index != obj.config.indexPlayer)) {
-                            return false;//ÅĞ¶ÏÊÇ²»ÊÇÓÎÏ·ÖĞ¡¢ÊÇ²»ÊÇÎÒµÄ»ØºÏ
+                            return false;//åˆ¤æ–­æ˜¯ä¸æ˜¯æ¸¸æˆä¸­ã€æ˜¯ä¸æ˜¯æˆ‘çš„å›åˆ
                         }
                         var config = obj.config,
                             widthMax = config.line.widthMax,
                             heightMax = config.line.heightMax,
                             numWidth = config.board.numWidth,
                             numHeight = config.board.numHeight;
-                        var indexWidth = (e.pageX - $board.offset().left) / widthMax,///¼õ±ß¿òÆ«ÒÆÁ¿ÓëÆåÅÌÆ«ÒÆÁ¿
-                            indexWidth_float = indexWidth % 1,///È¡Ğ¡Êı
-                            indexWidth = parseInt(indexWidth),//È¡ÕûÊı
+                        var indexWidth = (e.pageX - $board.offset().left) / widthMax,///å‡è¾¹æ¡†åç§»é‡ä¸æ£‹ç›˜åç§»é‡
+                            indexWidth_float = indexWidth % 1,///å–å°æ•°
+                            indexWidth = parseInt(indexWidth),//å–æ•´æ•°
                             indexHeight = (e.pageY - $board.offset().top) / heightMax,
-                            indexHeight_float = indexHeight % 1,///È¡Ğ¡Êı
-                            indexHeight = parseInt(indexHeight),//È¡ÕûÊı
+                            indexHeight_float = indexHeight % 1,///å–å°æ•°
+                            indexHeight = parseInt(indexHeight),//å–æ•´æ•°
                             numCheckMax = config.numCheck.max,
                             numCheckMin = config.numCheck.min,
                             side = -1;
@@ -176,14 +176,14 @@
                             obj.reset.selLine(side, indexWidth, indexHeight);
                         }
                     });
-                    //¹æÔòÏÔÊ¾
+                    //è§„åˆ™æ˜¾ç¤º
                     $('#rule').click(function(){
                         $('#rule-detail').slideToggle(300);
                     });
                 },
-                reset: function(state){//ÖØÖÃ
+                reset: function(state){//é‡ç½®
                     var obj = Game;
-                    ///ÅäÖÃ³õÊ¼»¯
+                    ///é…ç½®åˆå§‹åŒ–
                     var mode = $('#listMode').val(),
                         indexPlayer = obj.option.indexPlayer;///
                     var lineRank = 1,
@@ -196,9 +196,9 @@
                         isRandom = false;
                     }
                     ///if ( indexPlayer !== 0 ) {
-                        ///ÏÂÔØÅäÖÃ
+                        ///ä¸‹è½½é…ç½®
                     ///} else {
-                        $.extend(obj.option, {///ĞèÒªÌá¹©ÉèÖÃ½Ó¿Ú
+                        $.extend(obj.option, {///éœ€è¦æä¾›è®¾ç½®æ¥å£
                             board: {
                                 numWidth: 3,///
                                 numHeight: 3///
@@ -216,7 +216,7 @@
                         });
                         $.extend(obj.config, obj.option);
                     ///}
-                    //Íæ¼Ò³õÊ¼»¯
+                    //ç©å®¶åˆå§‹åŒ–
                     var list = [],
                         index = 0;///
                     list.push({
@@ -236,7 +236,7 @@
                     };
                     obj.div.players.$index.attr('checked', false).eq(index).attr('checked', true);
                     obj.div.players.$score.text(0);
-                    //ÆåÅÌ³õÊ¼»¯
+                    //æ£‹ç›˜åˆå§‹åŒ–
                     var config = obj.config,
                         widthMax = config.line.widthMax,
                         heightMax = config.line.heightMax,
@@ -251,7 +251,7 @@
                                 numRandom = obj.getRandom(1, 9);///2
                             }
                             strTmp += "<td>" + numRandom + "</td>";
-                            config.box.push([0, 0, 0, 0]);//¶şÎ¬Êı×é
+                            config.box.push([0, 0, 0, 0]);//äºŒç»´æ•°ç»„
                         }
                         strTmp += "</tr>";
                     }
@@ -259,7 +259,7 @@
                         ///.width(widthMax * numWidth)
                         .html(strTmp);
                     var $box = obj.div.$box = $board.find('td');
-                    var setSide = function(side, index, $select){//Ñ¡ÖĞÖ¸¶¨±ß
+                    var setSide = function(side, index, $select){//é€‰ä¸­æŒ‡å®šè¾¹
                             var obj = Game;
                             if (!$select) {
                                 return !obj.config.box[index][side];
@@ -269,13 +269,13 @@
                                 return obj.config.box[index][side] = 1;
                             }
                         },
-                        checkSide = function(side, index){//¼ì²éÖ¸¶¨±ßÊÇ·ñÒÑÑ¡ÖĞ
+                        checkSide = function(side, index){//æ£€æŸ¥æŒ‡å®šè¾¹æ˜¯å¦å·²é€‰ä¸­
                             return setSide(side, index);
                         },
-                        getSideClosest = function(side){//·µ»ØÏà¶ÔµÄ±ß
+                        getSideClosest = function(side){//è¿”å›ç›¸å¯¹çš„è¾¹
                             return (side + 2) % 4;
                         },
-                        getIndexClosest = function(side, index){//·µ»ØÏà¶ÔµÄ·½¿éË÷Òı
+                        getIndexClosest = function(side, index){//è¿”å›ç›¸å¯¹çš„æ–¹å—ç´¢å¼•
                             var indexClosest = index;
                             switch (side) {
                                 case 0:
@@ -293,7 +293,7 @@
                             }
                             return indexClosest;
                         },
-                        isEdge = function(side, indexWidth, indexHeight){//ÅĞ¶ÏÊÇ·ñ±ßÔµ·½¿é
+                        isEdge = function(side, indexWidth, indexHeight){//åˆ¤æ–­æ˜¯å¦è¾¹ç¼˜æ–¹å—
                             var Result = false;
                             switch (side) {
                                 case 0:
@@ -311,17 +311,17 @@
                             }
                             return Result;
                         },
-                        getSideUsedList = function($select){//·µ»ØÒÑÑ¡±ßÊı×é
+                        getSideUsedList = function($select){//è¿”å›å·²é€‰è¾¹æ•°ç»„
                             var arrSide = [];
                             $.each(config.classList, function(i, className){
                                 if ($select.hasClass(className)) arrSide.push(i);
                             });
                             return arrSide;
                         },
-                        getSideUsedNum = function($select){//·µ»ØÒÑÑ¡±ßÊı
+                        getSideUsedNum = function($select){//è¿”å›å·²é€‰è¾¹æ•°
                             return getSideUsedList($select).length;
                         },
-                        checkRound = function(){//ÅĞ¶Ï³É»·
+                        checkRound = function(){//åˆ¤æ–­æˆç¯
                             var obj = Game;
                             var $unSelect = $box.not('.select');
                             var score = 0;
@@ -339,7 +339,7 @@
                                 obj.changePlayer();
                             }
                         }
-                    obj.reset.selLine = function(side, indexWidth, indexHeight, numLineMax){//Ñ¡ÖĞÖ¸¶¨·½¿éÖ¸¶¨±ß
+                    obj.reset.selLine = function(side, indexWidth, indexHeight, numLineMax){//é€‰ä¸­æŒ‡å®šæ–¹å—æŒ‡å®šè¾¹
                         var obj = Game;
                         side = Number(side);
                         indexHeight = Number(indexHeight);
@@ -368,7 +368,7 @@
                             }
                             hasChecked = true;
                         }
-                        ///¼ì²é×´Ì¬
+                        ///æ£€æŸ¥çŠ¶æ€
                         if (hasChecked && obj.players.isPlaying) {
                             if (obj.config.mode == 2 && obj.players.index == obj.config.indexPlayer) {///
                                 var objStep = {
@@ -376,17 +376,17 @@
                                     indexWidth: indexWidth,
                                     indexHeight: indexHeight
                                 }
-                                //·¢ËÍÏûÏ¢
+                                //å‘é€æ¶ˆæ¯
                                 obj.set(objStep);
                             }
-                            checkRound();///¿ÉÄÜ±»Ñ­»·µ÷ÓÃ×èÈû
-                            (function(){///ÆäËûÄ£Ê½AI
-                                if (obj.config.mode == 1) {//ÈË»úÄ£Ê½
-                                    if (obj.players.isPlaying === 1 && obj.players.index != obj.config.indexPlayer) {///Í¬²½
+                            checkRound();///å¯èƒ½è¢«å¾ªç¯è°ƒç”¨é˜»å¡
+                            (function(){///å…¶ä»–æ¨¡å¼AI
+                                if (obj.config.mode == 1) {//äººæœºæ¨¡å¼
+                                    if (obj.players.isPlaying === 1 && obj.players.index != obj.config.indexPlayer) {///åŒæ­¥
                                         var objMax = {
                                             index: -1,
                                             side: -1,
-                                            weight: 0,///¼ÆËã·ÖÊıÓë²ßÂÔÈ¨ÖØ
+                                            weight: 0,///è®¡ç®—åˆ†æ•°ä¸ç­–ç•¥æƒé‡
                                             div: null
                                         }
                                         $unSelect.each(function(){
@@ -398,20 +398,20 @@
                                                 weight = 0,///
                                                 flag = false;
                                             if (len === 3) {
-                                                ///¼ÆËã·ÖÊı
+                                                ///è®¡ç®—åˆ†æ•°
                                                 score = 10000;
                                                 if (score > objMax.weight) {
                                                     flag = true;
                                                 }
                                             } else if ((len === 1 || len === 0) && objMax.weight < 10000) {
-                                                ///ÁÚ½ÓÅĞ¶Ï¡¢¼ÆËã·ÖÊı
-                                                ///ÓĞĞ§ÁÚ½Ó·½¿éÈ¨ÖµÆÀ·Ö
+                                                ///é‚»æ¥åˆ¤æ–­ã€è®¡ç®—åˆ†æ•°
+                                                ///æœ‰æ•ˆé‚»æ¥æ–¹å—æƒå€¼è¯„åˆ†
                                                 score = 100; 
                                                 if (score > objMax.weight) {
                                                     flag = true;
                                                 }
                                             } else if (len === 2 && objMax.weight < 100) {
-                                                ///¼ÆËã·ÖÊı
+                                                ///è®¡ç®—åˆ†æ•°
                                                 score = 1;
                                                 if (score > objMax.weight) {
                                                     flag = true;
@@ -440,7 +440,7 @@
                                         obj.reset.selLine(objMax.side, indexWidth, indexHeight);
                                     }
                                 }
-                                if (obj.config.mode == 2) {///ÍøÂç¶ÔÕ½
+                                if (obj.config.mode == 2) {///ç½‘ç»œå¯¹æˆ˜
                                     if (obj.players.isPlaying === 1 && obj.players.index != obj.config.indexPlayer) {
                                         if (obj.config.objStepNum === 0) {///
                                             obj.get();
@@ -451,7 +451,7 @@
                         }
                         return hasChecked;
                     }
-                    //ÆåÅÌËæ»ú×´Ì¬
+                    //æ£‹ç›˜éšæœºçŠ¶æ€
                     if (config.lineRank) {///
                         if (config.lineRank == 1) {
 							for (var i = 0, len = numWidth * numHeight * 2; i < len; i++) {
@@ -480,13 +480,13 @@
                         }
                         $board.find('.last').removeClass('last b_t_last b_r_last b_b_last b_l_last');///
                     }
-                    ///Èç¹ûÒÑ¾­½øÈë·¿¼ä£¬ÏÈÍË³ö·¿¼ä
+                    ///å¦‚æœå·²ç»è¿›å…¥æˆ¿é—´ï¼Œå…ˆé€€å‡ºæˆ¿é—´
                     if (!state) {
                         if ( mode == 2 ) {
                             if (obj.config.indexPlayer == 0) {
                                 obj.start();
                             } else {
-                                obj.get();///½øÈë×¼±¸×´Ì¬
+                                obj.get();///è¿›å…¥å‡†å¤‡çŠ¶æ€
                                 alert(obj.msg.get);
                             }
                         }
@@ -500,7 +500,7 @@
                         obj.players.isPlaying = 1;
                     }
                 },
-                getRandom: function (min, max) {///»ñÈ¡Ëæ»úÊı
+                getRandom: function (min, max) {///è·å–éšæœºæ•°
                     if (!arguments.length) {
                         return +new Date();
                     }
@@ -512,19 +512,19 @@
                 match: {
                     
                 },
-                getCid: function(callback){//»ñÈ¡Î¨Ò»¿Í»§¶Ë±êÊ¶
+                getCid: function(callback){//è·å–å”¯ä¸€å®¢æˆ·ç«¯æ ‡è¯†
                     var obj = Game;
                     if (obj.config.cid == null) {
                         $.getJSON('games/gridcolor/getCid?id=' + obj.getRandom(), function(data){
                             obj.config.cid = data;///
                             callback(data);
-                            ///alert('ÄúµÄidºÅÊÇ' + data + 'ºÅ');
+                            ///alert('æ‚¨çš„idå·æ˜¯' + data + 'å·');
                         });
                     } else {
                         callback(obj.config.cid);
                     }
                 },
-                create: function(){//´´½¨·¿¼ä
+                create: function(){//åˆ›å»ºæˆ¿é—´
                     var obj = Game;
                     obj.getCid(function(cid){
                         var params = {
@@ -538,7 +538,7 @@
                                 obj.div.btn.$join.attr('disabled', true);
                                 obj.div.btn.$out.attr('disabled', false);
                                 obj.reset(1);///
-                                ///ÂÖÑ¯·¿¼ä×´Ì¬
+                                ///è½®è¯¢æˆ¿é—´çŠ¶æ€
                                 alert(obj.msg.create);
                             } else {
                                 alert(obj.msg.timeout);
@@ -546,7 +546,7 @@
                         });
                     });
                 },
-                join: function(){//¼ÓÈë·¿¼ä
+                join: function(){//åŠ å…¥æˆ¿é—´
                     var obj = Game;
                     obj.getCid(function(cid){
                         var params = {
@@ -554,8 +554,8 @@
                             id: obj.getRandom()
                         }
                         $.getJSON('games/gridcolor/getRoomList', params, function(arrRoomList){
-                            if (arrRoomList.length) {///¿ÉÒÔÉú³ÉÁĞ±í
-                                var room = arrRoomList[0];///¿ÉÒÔ±£´æµ½±¾µØ
+                            if (arrRoomList.length) {///å¯ä»¥ç”Ÿæˆåˆ—è¡¨
+                                var room = arrRoomList[0];///å¯ä»¥ä¿å­˜åˆ°æœ¬åœ°
                                 params = {
                                     cid: room,
                                     cid_r: cid,
@@ -569,7 +569,7 @@
                                         obj.div.btn.$join.attr('disabled', true);
                                         obj.div.btn.$out.attr('disabled', false);
                                         obj.reset(1);///
-                                        ///ÂÖÑ¯·¿¼ä×´Ì¬
+                                        ///è½®è¯¢æˆ¿é—´çŠ¶æ€
                                         alert(obj.msg.join);
                                     } else {
                                         alert(obj.msg.timeout);
@@ -581,7 +581,7 @@
                         });
                     });
                 },
-                start: function(){//¿ªÊ¼ÓÎÏ·
+                start: function(){//å¼€å§‹æ¸¸æˆ
                     var obj = Game;
                     var params = {
                         cid: obj.config.cid,
@@ -602,7 +602,7 @@
                         }
                     });
                 },
-                out: function(){//ÍË³ö·¿¼ä
+                out: function(){//é€€å‡ºæˆ¿é—´
                     var obj = Game;
                     var params = {
                         cid: obj.config.cid,
@@ -620,15 +620,15 @@
                         }
                     });
                 },
-                set: function(params){//·¢ËÍÏûÏ¢£¨ÉÏ´«²Ù×÷£©
+                set: function(params){//å‘é€æ¶ˆæ¯ï¼ˆä¸Šä¼ æ“ä½œï¼‰
                     var obj = Game;
                     params.cid = obj.config.cid;
                     params.id = obj.getRandom();
                     $.getJSON('games/gridcolor/set', params, function(){
-                        ///È·ÈÏÊÕµ½£¬Òì³£ÖØÊÔ
+                        ///ç¡®è®¤æ”¶åˆ°ï¼Œå¼‚å¸¸é‡è¯•
                     });
                 },
-                get: function(flag){//½ÓÊÕÏûÏ¢£¨ÏÂÔØ²Ù×÷£©
+                get: function(flag){//æ¥æ”¶æ¶ˆæ¯ï¼ˆä¸‹è½½æ“ä½œï¼‰
                     var obj = Game;
                     if (!flag) {
                         obj.loadToggle(true);
@@ -637,10 +637,10 @@
                         cid: obj.config.cid,
                         id: obj.getRandom()
                     }
-                    setTimeout(function(){///¿¼ÂÇ¶Ô·½ÑÓ³Ù
+                    setTimeout(function(){///è€ƒè™‘å¯¹æ–¹å»¶è¿Ÿ
                         $.getJSON('games/gridcolor/get', params, function(arrStepList){
                             obj.config.objStepNum = arrStepList.length;///
-                            if (obj.config.objStepNum === 0) {///¼ÌĞøÂÖÑ¯
+                            if (obj.config.objStepNum === 0) {///ç»§ç»­è½®è¯¢
                                 obj.get(1);
                                 return;
                             }
@@ -653,7 +653,7 @@
                         });
                     }, 1500);
                 },
-                over: function(){//ÓÎÏ·½áÊø
+                over: function(){//æ¸¸æˆç»“æŸ
                     var obj = Game;
                     var params = {
                         cid: obj.config.cid,
@@ -670,18 +670,18 @@
                 loadToggle: function(flag){
                     $('#load').toggle(flag);///
                 },
-                addScore: function(score){//¼Ó·Ö
+                addScore: function(score){//åŠ åˆ†
                     var obj = Game;
                     obj.div.players.$score.eq(obj.players.index).text(function(i, text){
                         return Number(text) + score;
                     });
                 },
-                changePlayer: function(){//ÇĞ»»Ñ¡ÊÖ
+                changePlayer: function(){//åˆ‡æ¢é€‰æ‰‹
 					var obj = Game;
 					var index = obj.players.index = (obj.players.index + 1) % 2;
 					obj.div.players.$index.attr('checked', false).eq(index).attr('checked', true);
                 },
-                checkDone: function(){//¼ì²éÊÇ·ñ´ïµ½½áÊøÌõ¼ş
+                checkDone: function(){//æ£€æŸ¥æ˜¯å¦è¾¾åˆ°ç»“æŸæ¡ä»¶
                     var obj = Game;
                     if (!obj.div.$box.not('.select').length) {
                         obj.players.isPlaying = 0;
@@ -700,7 +700,7 @@
                             }
                             obj.div.btn.$reset.attr('disabled', false);
                         }
-                        alert('¹§Ï²' + indexMax + 'ºÅÍæ¼ÒÊ¤³ö£¡');///Æ½¾Ö
+                        alert('æ­å–œ' + indexMax + 'å·ç©å®¶èƒœå‡ºï¼');///å¹³å±€
                         return true;
 					}
 					return false;
@@ -716,28 +716,28 @@
         <ul id="control">
             <li>
                 <select id="listMode">
-                    <option value="0">Íæ¼Ò¶ÔÕ½</option>
-                    <option value="1">ÈË»ú¶ÔÕ½</option>
-                    <option value="2">ÍøÂç¶ÔÕ½</option>
+                    <option value="0">ç©å®¶å¯¹æˆ˜</option>
+                    <option value="1">äººæœºå¯¹æˆ˜</option>
+                    <option value="2">ç½‘ç»œå¯¹æˆ˜</option>
                 </select>
-                <a id="rule" href="#">¹æÔò</a>
-                <div id="rule-detail" style="display:none;">Íæ¼ÒÑ¡Ôñ±ßÏß£¬³É»·ÔòµÃ·Ö¼ÌĞøÑ¡Ôñ£¬·ñÔòÂÖ»»¶Ô·½£¬×îºó·Ö¸ßÕßÎªÊ¤¡£</div>
+                <a id="rule" href="#">è§„åˆ™</a>
+                <div id="rule-detail" style="display:none;">ç©å®¶é€‰æ‹©è¾¹çº¿ï¼Œæˆç¯åˆ™å¾—åˆ†ç»§ç»­é€‰æ‹©ï¼Œå¦åˆ™è½®æ¢å¯¹æ–¹ï¼Œæœ€ååˆ†é«˜è€…ä¸ºèƒœã€‚</div>
             </li>
             <li id="player">
                 <ul>
                     <li class="player">
-                        <input type="checkbox" class="index" value="0" disabled="disabled" /> 1ºÅ ºì·½(<span class="score">0</span>)<br />
+                        <input type="checkbox" class="index" value="0" disabled="disabled" /> 1å· çº¢æ–¹(<span class="score">0</span>)<br />
                     </li>
                     <li class="player">
-                        <input type="checkbox" class="index" value="1" disabled="disabled" /> 2ºÅ À¶·½(<span class="score">0</span>)
+                        <input type="checkbox" class="index" value="1" disabled="disabled" /> 2å· è“æ–¹(<span class="score">0</span>)
                     </li>
                 </ul>
             </li>
             <li>
-                <input type="button" id="btnReset" value="ÖØĞÂ¿ªÊ¼" />
-                <input type="button" id="btnCreate" value="´´½¨·¿¼ä" />
-                <input type="button" id="btnJoin" value="¼ÓÈë·¿¼ä" />
-                <input type="button" id="btnOut" value="ÍË³ö·¿¼ä" />
+                <input type="button" id="btnReset" value="é‡æ–°å¼€å§‹" />
+                <input type="button" id="btnCreate" value="åˆ›å»ºæˆ¿é—´" />
+                <input type="button" id="btnJoin" value="åŠ å…¥æˆ¿é—´" />
+                <input type="button" id="btnOut" value="é€€å‡ºæˆ¿é—´" />
             </li>
             <li>
 				<div class="loading hide"></div>

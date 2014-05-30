@@ -1,11 +1,11 @@
 var mime = {
 
-  //查找文件后缀类型
+  //鏌ユ壘鏂囦欢鍚庣紑绫诲瀷
   lookupExtension : function(ext, fallback) {
     return mime.TYPES[ext.toLowerCase()] || fallback || 'text/plain';
   },
 
-  //文件类型
+  //鏂囦欢绫诲瀷
   TYPES : { ".3gp"   : "video/3gpp"
           , ".a"     : "application/octet-stream"
           , ".ai"    : "application/postscript"
