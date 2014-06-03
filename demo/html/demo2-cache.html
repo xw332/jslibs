@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - cache</title>
+</head>
+<body>
+  <p>cache：负责数据的持久化存储</p>
+  <p>自动测试：</p>
+  <div>localStorage预期结果1：null -> 111 -> null</div>
+  <div>cookie预期结果2：null -> 222 -> null（谷歌需在线环境）</div>
+  <div>memory预期结果3：undefined -> 333 -> undefined</div>
+  可打开调试器看结果
+  <p>手动测试</p>
+  <div>
+    <input id="yp-txt-data" type="text">
+    <button id="yp-btn-save">保存</button>
+    <button id="yp-btn-get">获取</button>
+    <button id="yp-btn-del">删除</button>
+  </div>
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script>
+    yp.use('yp-cache', function(yp) {
+      var cache
+        , data = 0
+
+      // 自动测试
+      yp.each(['localStorage', 'cookie', ''], function(type) {
+        cache = yp.cache.create(type);
+        // 获取数据
+        yp.log(cache.getItem('key'));
+        // 设置数据
+        cache.setItem('key', data += 111);
+        yp.log(cache.getItem('key'));
+        // 删除数据
+        cache.removeItem('key');
+        yp.log(cache.getItem('key'));
+      });
+
+      // 手动测试
+      yp.ready(function() {
+        $('#yp-btn-save').click(function() {
+          var val = $('#yp-txt-data').val()
+          yp.localStorage.setItem('test', val);
+          alert('保存成功');
+        });
+        $('#yp-btn-get').click(function() {
+          var val = yp.localStorage.getItem('test')
+          alert('值：' + val);
+        });
+        $('#yp-btn-del').click(function() {
+          yp.localStorage.removeItem('test');
+          alert('删除成功');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

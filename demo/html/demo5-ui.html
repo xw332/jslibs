@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - ui</title>
+</head>
+<body>
+  <p>ui：负责全局界面事件管理</p>
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script src="../test/yp-ui.js"></script>
+  <script>
+    yp.use('yp-ui', function(yp) {
+      yp.log('全局变量：', yp.global, yp.ui.$doc);
+      // 自定义初始化ui插件
+      yp.sub('ui/error/ajax.page', function(e, data) {
+        e.preventDefault();
+        yp.log.bind({mode:'dom'})('这也是一个系统消息，不过被页面拦截了');
+        yp.log('消息传递的数据：', data);
+      });
+    });
+  </script>
+</body>
+</html>

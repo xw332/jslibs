@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - loger</title>
+</head>
+<body>
+  <p>loger：负责全局调试日志输出</p>
+  请打开调试器，三条调试信息会一起显示
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script>
+    yp.use('yp-loger', function(yp) {
+      // 多种可选的调用方式
+      yp.log(111);
+      yp.loger.mode = 'dom';
+      yp.log(222);
+      yp.log.bind({mode:'alert'})(333);
+    });
+  </script>
+</body>
+</html>

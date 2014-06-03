@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>demo - loader</title>
+</head>
+<body>
+  <p>loader：负责全局数据加载</p>
+  请打开调试器，查看信息
+  <form action="url_ajax2">
+    <input type="text" name="a">
+    <button id="yp-btn-ajax" type="button">提交1</button>
+    <button type="submit">提交2</button>
+  </form>
+
+  <script>
+    // 框架配置
+    window.oYpConfig = {
+      baseUrl: '../'
+    }
+    // 页面配置
+    window.oPageConfig = {
+      oUrl: {
+        'url1': 'url_ajax1'
+      }
+    }
+  </script>
+  <script src="../yp/lib/yp-min.js"></script>
+  <script src="../test/test.js"></script>
+  <script>
+    yp.use('yp-loader', function(yp) {
+      $('#yp-btn-ajax').click(function() {
+        // 异步ajax -get
+        yp.ajax(window.oPageConfig.oUrl['url1'], {data:{a:1}})
+        .done(function(msg) {
+          yp.log('ajax加载成功', msg);
+        });
+      });
+      $('form').submit(function() {
+        // 表单ajax -post
+        $(this).ajaxSubmit().ajax
+        .done(function(msg) {
+          yp.log('ajaxSubmit提交成功', msg);
+        });
+        $('input').val('');
+        return false;
+      })
+    });
+  </script>
+</body>
+</html>
