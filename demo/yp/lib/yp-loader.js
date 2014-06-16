@@ -1,7 +1,7 @@
 /* ==========================================================
- * yp: loaderData.js v20140413
+ * yp: loaderData.js v20140616
  * ==========================================================
- * Copyright 2013 xiewu
+ * Copyright xiewu
  *
  * 全局数据加载模块
  * ========================================================== */
@@ -22,36 +22,45 @@ var
       url = opts.url;
     }
     opts = opts || {};
-    // 自定义loading显示
-    var toggleLoaderBar = function(flag) {
-      if (opts.loaderBar) api.loaderBar.toggle(flag);
+    
+    var dfd = $.Deferred();
+    // 结束回调
+    var alwaysCallback = function(e) {
+      $.pub('loader/ajax/always');
     };
     // 完成回调
-    var alwaysCallback = function() {
-      toggleLoaderBar(false);
+    var doneCallback = function(msg, status, xhr) {
+      var e = $.Event('loader/ajax/done');
+      $.pub(e, msg);
+      if (e.isDefaultPrevented()) return;
+      dfd.resolve(msg, status, xhr);
     };
     // 异常回调
     var failCallback = function(msg, status, throws) {
-      var errMsg = {
+      var oMsgMap = {
             timeout: '请求超时，请稍候重试'
           , error: '服务器错误，请联系管理员'
           , errorInternal: '服务器错误，请联系管理员'
           , parsererror: '返回格式不合法，请联系管理员'
           }
-        , errMsg_text = errMsg[status] || msg.message || errMsg['error']
+        , sErrMsg = oMsgMap[status] || oMsgMap['error']
         , e = $.Event('yp/' + 'loader/ajax/fail/' + msg.type)
       
       yp.pub(e, msg);
       if (e.isDefaultPrevented()) return;
-      $.pub('error/ui', {code:'ajax/fail', message:errMsg_text, data:msg});
+      $.pub('error/ui', {code:'ajax/fail', message:sErrMsg, data:msg});
     };
-    var deferred
-    opts.type = opts.type || config.loader.type || 'GET';
-    opts.dataType = opts.dataType || config.loader.dataType;///
-    toggleLoaderBar(true);
 
-    deferred = api[opts.type.toUpperCase()].ajax(url, opts);
-    return deferred.fail(failCallback).always(alwaysCallback);
+    opts.type = opts.type || config.loader.type || 'GET';
+    opts.dataType = opts.dataType || config.loader.dataType;
+
+    api[opts.type.toUpperCase()].ajax(url, opts)
+    .fail(failCallback)
+    .done(doneCallback)
+    .always(alwaysCallback);
+    
+    $.pub('loader/ajax/start', opts);
+    return dfd.promise();
   }
 
   /* 异步提交表单 */
@@ -96,7 +105,6 @@ var
     data && data_list.push(data);
     data = data_list.join('&');
     var callback = opts.success;
-    var loaderBar = opts.loaderBar;
 
     // 触发表单提交事件
     $target.trigger('form-submit-notify');
@@ -104,7 +112,6 @@ var
     return ajaxList[url] = ajax(url, {
         type: type
       , data: data
-      , loaderBar: loaderBar///
       })
       .done(callback)
       .always(function(e) {
@@ -125,7 +132,7 @@ var
     opts.target = this;
     this.ajax = ajaxSubmit(opts);
     return this;
-  }
+  };
 
   // 监听表单事件
   $.sub('form-pre-serialize', function(e, form, $btnSubmit) {
@@ -140,15 +147,6 @@ var
     api[type] = $;
     ///exports[type] = $[type];
   });
-
-  // loading模块
-  api.loaderBar = {
-    dom: $('<div class="loading">loading...</div>')
-  , toggle: function(flag) {
-      if (flag) this.dom.appendTo('body');
-      else this.dom.remove();
-    }
-  };
 
   define( 'yp.loader', [], function() { return api; } );
 }(jQuery, yp);

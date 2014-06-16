@@ -1,5 +1,5 @@
 /* ==========================================================
- * yp: ui.js v20140413
+ * yp: ui.js v20140616
  * ==========================================================
  * Copyright xiewu
  *
@@ -62,6 +62,28 @@ var
     $.pub('ui/main/resize');
   });
 
+  // loading模块
+  +function() {
+    ui.oLoading = {
+      dom: $('<div class="loading">加载中...</div>')
+    , container: ui.$body
+    , toggle: function(flag) {
+        if (flag) this.dom.appendTo(this.container);
+        else this.dom.remove();
+      }
+    };
+    $.sub('loader/ajax/start.ui', function(e) {
+      clearTimeout(ui.oLoading.timer);
+      ui.oLoading.timer = setTimeout(function() {
+        ui.oLoading.toggle(true);
+      }, 300);
+    });
+    $.sub('loader/ajax/always.ui', function(e) {
+      clearTimeout(ui.oLoading.timer);
+      ui.oLoading.toggle(false);
+    });
+  }();
+
   // 监听错误消息
   $.sub('error/ui.ui', function(e, msg) {
     var e = $.Event('yp/ui/error/' + msg.code)
@@ -93,11 +115,11 @@ var
   });
 
   // 监听页面初始化事件
+  yp.ready(function() {
+    $.pub('ui/update', ui.$body);
+  });
   yp.sub('page/domCreate.ui.event', function(e, data) {
     $.pub('ui/update', data.target);
     return false;
-  });
-  yp.ready(function() {
-    $.pub('ui/update', ui.$body);
   });
 }(jQuery, yp);
